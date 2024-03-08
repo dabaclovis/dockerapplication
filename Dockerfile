@@ -28,11 +28,5 @@ RUN curl -sS https://getcomposer.org/installer | php --  --install-dir=/usr/loca
 
 COPY ./src /var/www/laravel/
 RUN composer install
-RUN if [ ! -f ".env" ]; then \
-    cp .env.example .env \
-    php artisan key:generate \
-    else \
-        echo "env file exists." \
-    fi
-
+RUN if [[ ! -f ".env" ]]; then cp -r .env.example .env else echo ".env exists"; fi
 CMD ["php","artisan","serve","--host=0.0.0.0"] 
